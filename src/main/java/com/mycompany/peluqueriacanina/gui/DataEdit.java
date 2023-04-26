@@ -2,15 +2,19 @@
 package com.mycompany.peluqueriacanina.gui;
 
 import com.mycompany.peluqueriacanina.logic.Controller;
+import com.mycompany.peluqueriacanina.logic.Pet;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
-public class DataLoad extends javax.swing.JFrame {
-    
+public class DataEdit extends javax.swing.JFrame {
+    private int numberClient = 0;
     Controller controller = new Controller();
+    private Pet pet = null;
 
-    public DataLoad() {
+    public DataEdit(int numberClient) {
+        this.numberClient = numberClient;
         initComponents();
+        loadData(numberClient);
     }
 
     @SuppressWarnings("unchecked")
@@ -40,13 +44,12 @@ public class DataLoad extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnLimpiar = new javax.swing.JButton();
-        btnGuardar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnSaveEdit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
-        jLabel1.setText("Cargar datos");
+        jLabel1.setText("Modificar Datos");
 
         jLabel2.setText("Nombre:");
 
@@ -170,11 +173,11 @@ public class DataLoad extends javax.swing.JFrame {
             }
         });
 
-        btnGuardar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnGuardar.setText("Guardar");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+        btnSaveEdit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnSaveEdit.setText("Modificar");
+        btnSaveEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
+                btnSaveEditActionPerformed(evt);
             }
         });
 
@@ -186,7 +189,7 @@ public class DataLoad extends javax.swing.JFrame {
                 .addGap(153, 153, 153)
                 .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(57, 57, 57)
-                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSaveEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(136, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -195,11 +198,9 @@ public class DataLoad extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSaveEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jButton2.setText("jButton2");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -217,9 +218,7 @@ public class DataLoad extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton2)
-                .addGap(183, 183, 183)
+                .addGap(268, 268, 268)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -227,16 +226,14 @@ public class DataLoad extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jButton2))
+                .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -268,25 +265,23 @@ public class DataLoad extends javax.swing.JFrame {
         cmbSpeAtt.setSelectedIndex(0);
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        controller.save(txtPetName.getText(),txtRace.getText(),txtColor.getText(),txtObservations.getText(),
-                txtOwnerName.getText(),txtTel.getText(),cmbAllergic.getSelectedItem().toString(),
-                cmbSpeAtt.getSelectedItem().toString());
-        JOptionPane optionPane = new JOptionPane("Guardado correctamente");
-        optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
-        JDialog dialog = optionPane.createDialog("Guardado con éxito");
-        dialog.setAlwaysOnTop(true);
-        dialog.setVisible(true);
-        btnLimpiarActionPerformed(evt);
-    }//GEN-LAST:event_btnGuardarActionPerformed
+    private void btnSaveEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveEditActionPerformed
+        controller.update(pet, txtPetName.getText(), txtRace.getText(),txtColor.getText(),txtObservations.getText(),
+        cmbAllergic.getSelectedItem().toString(),cmbSpeAtt.getSelectedItem().toString(),
+        txtOwnerName.getText(),txtTel.getText());
+        showMessage("Se ha modificado exitosamente", "Information", "Datos modificados");
+        DataView windowDataView = new DataView();
+        windowDataView.setVisible(true);
+        windowDataView.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_btnSaveEditActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnSaveEdit;
     private javax.swing.JComboBox<String> cmbAllergic;
     private javax.swing.JComboBox<String> cmbSpeAtt;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -308,4 +303,35 @@ public class DataLoad extends javax.swing.JFrame {
     private javax.swing.JTextField txtRace;
     private javax.swing.JTextField txtTel;
     // End of variables declaration//GEN-END:variables
+
+    private void loadData(int numberClient) {
+        this.pet = controller.getPet(numberClient);
+        txtPetName.setText(pet.getPetName());
+        txtRace.setText(pet.getRace());
+        txtColor.setText(pet.getColor());
+        txtObservations.setText(pet.getObservations());
+        txtOwnerName.setText(pet.getPetOwner().getName());
+        txtTel.setText(pet.getPetOwner().getCellphone());
+        if(pet.getAllergic().equals("Si")){
+            cmbAllergic.setSelectedIndex(2);
+        } else if(pet.getAllergic().equals("No")){
+            cmbAllergic.setSelectedIndex(1);
+        }
+        if(pet.getSpecialAttention().equals("Si")){
+            cmbSpeAtt.setSelectedIndex(2);
+        } else if(pet.getSpecialAttention().equals("No")){
+            cmbSpeAtt.setSelectedIndex(1);
+        }
+    }
+        public void showMessage(String message, String type, String title){
+        JOptionPane optionPane = new JOptionPane(message);
+        if(type.equals("Information")){
+            optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        } else if(type.equals("Error")){
+            optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+        }
+        JDialog dialog = optionPane.createDialog(title);
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+    }
 }
